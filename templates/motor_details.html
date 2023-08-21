@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Motor Monitoring System - Motor Details{% endblock %}
+
+{% block content %}
+
+<h1 class="mb-4">Motor Monitor</h1>
+        
+<!-- Datos de la placa característica del motor -->
+<div class="card mb-4">
+    <div class="card-header">
+        Motor Characteristics
+    </div>
+    <div class="card-body">
+        <ul class="list-group">
+            <li class="list-group-item">Voltage: {{ voltage }} V</li>
+            <li class="list-group-item">RPM: {{ rpm }}</li>
+            <li class="list-group-item">Current: {{ current }} A</li>
+            <li class="list-group-item">Frequency: {{ frequency }} Hz</li>
+            <li class="list-group-item">Max Temperature: {{ max_temp }}°C</li>
+            <li class="list-group-item">Rated Power: {{ rated_power }} HP</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Indicadores de estado -->
+<div class="card">
+    <div class="card-header">
+        Motor Status Indicators
+    </div>
+    <div class="card-body">
+        <div class="indicator">
+            <div class="indicator-circle status-green"></div>
+            <h5 class="indicator-label">Voltage</h5>
+            <div class="indicator-value">Measured: 230 V</div>
+            <div class="indicator-value">Expected: 220-240 V</div>
+            <div class="indicator-status status-green">Normal</div>
+        </div>
+        <div class="indicator">
+            <div class="indicator-circle status-yellow"></div>
+            <h5 class="indicator-label">Current</h5>
+            <div class="indicator-value">Measured: 1.9 A</div>
+            <div class="indicator-value">Expected: 2.0-3.0 A</div>
+            <div class="indicator-status status-yellow">Attention</div>
+        </div>
+        <div class="indicator">
+            <div class="indicator-circle status-red"></div>
+            <h5 class="indicator-label">Temperature</h5>
+            <div class="indicator-value">Measured: 95°C</div>
+            <div class="indicator-value">Expected: < 80°C</div>
+            <div class="indicator-status status-red">Danger</div>
+        </div>
+        <div class="indicator">
+            <div class="indicator-circle status-green"></div>
+            <h5 class="indicator-label">RPM</h5>
+            <div class="indicator-value">Measured: 1550 RPM</div>
+            <div class="indicator-value">Expected: 1500 RPM</div>
+            <div class="indicator-status status-green">Normal</div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,99 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.container {
+    text-align: center;
+}
+
+.card {
+    margin-bottom: 20px;
+}
+
+.indicator {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.indicator-circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.status-green {
+    background-color: #28a745;
+}
+
+.status-yellow {
+    background-color: #ffc107;
+}
+
+.status-red {
+    background-color: #dc3545;
+}
+
+.indicator-label {
+    flex: 1;
+    margin-right: 10px;
+    text-decoration: underline;
+}
+
+.indicator-value {
+    flex: 2;
+    margin-right: 10px;
+    color: #007bff; /* Cambio el color del texto */
+}
+
+.indicator-status {
+    width: 100px;
+    text-align: center;
+    padding: 5px;
+    font-weight: bold;
+}
+
+/* Personaliza el diseño de las tarjetas */
+.motor-card {
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.motor-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Agrega una barra de potencia en cada tarjeta */
+.power-bar {
+    height: 8px;
+    background-color: #007bff;
+    width: 0; /* Se ajustará mediante el estilo en línea */
+    border-radius: 5px;
+    margin-top: 10px;
+    transition: width 0.5s;
+}
+
+
+.power-bar {
+    height: 8px;
+    background-color: #c3c3c3; /* Color de fondo de la barra */
+    width: 0;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    transition: width 0.5s;
+    position: relative;
+}
+
+/* Estilo para el relleno de la barra de potencia */
+.power-bar-fill {
+    height: 100%;
+    background-color: #4CAF50; /* Color del relleno de la barra */
+    border-radius: 5px;
+}
+

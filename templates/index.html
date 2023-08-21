@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Motor Monitoring System - Home{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">Motor Monitoring System</h1>
+    
+    <!-- Tarjetas de motores con diseño mejorado -->
+    <div class="row">
+        {% for motor in motors %}
+        <div class="col-md-4">
+            <div class="card motor-card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ motor['name'] }}</h5>
+                    <p class="card-text">Power: <span class="real-time-data">{{ motor['power'] }} HP</span></p>
+                    <div class="power-bar" style="width: {{ motor['power'] * 20 }}%; margin-bottom: 10px;">
+                        <div class="power-bar-fill"></div>
+                    </div>
+                    <a href="{{ url_for('motor_details', motor_id=motor['id']) }}" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
