@@ -5,23 +5,61 @@
 {% block content %}
 
 <h1 class="mb-4">Motor Monitor</h1>
-        
-<!-- Datos de la placa característica del motor -->
-<div class="card mb-4">
-    <div class="card-header">
-        Motor Characteristics
+
+<div class="row">
+    <!-- Cuadro de "Motor Characteristics" -->
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>Motor Characteristics</h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    <ul class="list-group-item">Voltage: {{ voltage }} </ul>
+                    <ul class="list-group-item">RPM: {{ rpm }}</ul>
+                    <ul class="list-group-item">Current: {{ current }} </ul>
+                    <ul class="list-group-item">Frequency: {{ frequency }} </ul>
+                    <ul class="list-group-item">Max Temperature: {{ max_temp }}°C</ul>
+                    <ul class="list-group-item">Rated Power: {{ rated_power }} HP</ul>
+                </ul>
+            </div>
+        </div>
     </div>
-    <div class="card-body">
-        <ul class="list-group">
-            <li class="list-group-item">Voltage: {{ voltage }} V</li>
-            <li class="list-group-item">RPM: {{ rpm }}</li>
-            <li class="list-group-item">Current: {{ current }} A</li>
-            <li class="list-group-item">Frequency: {{ frequency }} Hz</li>
-            <li class="list-group-item">Max Temperature: {{ max_temp }}°C</li>
-            <li class="list-group-item">Rated Power: {{ rated_power }} HP</li>
-        </ul>
+
+    <!-- Cuadro de "Consejos de Mantenimiento y Recursos Externos" -->
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>Maintenance Tips</h4>
+            </div>
+            <div class="card-body">
+                <ul>Clean the motor regularly to remove dust and debris.</ul>
+                <ul>Lubricate moving parts according to manufacturer's recommendations.</ul>
+                <ul>Inspect cables and connections for wear and tear.</ul>
+                <ul>Perform regular tests of operation and load.</ul>
+                <ul>Avoid frequent starts and stops to extend the lifespan.</ul>
+                <ul>Maintain a maintenance record and schedule.</ul>
+            </div>
+        </div>
     </div>
 </div>
+
+{#<!-- Datos de la placa característica del motor -->#}
+{#<div class="card mb-4">#}
+{#    <div class="card-header">#}
+{#        Motor Characteristics#}
+{#    </div>#}
+{#    <div class="card-body">#}
+{#        <ul class="list-group">#}
+{#            <li class="list-group-item">Voltage: {{ voltage }} V</li>#}
+{#            <li class="list-group-item">RPM: {{ rpm }}</li>#}
+{#            <li class="list-group-item">Current: {{ current }} A</li>#}
+{#            <li class="list-group-item">Frequency: {{ frequency }} Hz</li>#}
+{#            <li class="list-group-item">Max Temperature: {{ max_temp }}°C</li>#}
+{#            <li class="list-group-item">Rated Power: {{ rated_power }} HP</li>#}
+{#        </ul>#}
+{#    </div>#}
+{#</div>#}
 
 <!-- Indicadores de estado -->
 <div class="card">
