@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
-{% block title %}Motor Monitoring System - Home{% endblock %}
+{% block title %}Sistema de Monitero - Home{% endblock %}
 
 {% block content %}
-    <h1 class="mb-4">Motor Monitoring System</h1>
+    <h1 class="mb-4">Sistema de Monitoreo</h1>
     
     <!-- Tarjetas de motores con diseño mejorado -->
     <div class="row">
@@ -16,7 +16,7 @@
                     <div class="power-bar" style="width: {{ motor['power'] * 20 }}%; margin-bottom: 10px;">
                         <div class="power-bar-fill"></div>
                     </div>
-                    <a href="{{ url_for('motor_details', motor_id=motor['id']) }}" class="btn btn-primary">View Details</a>
+                    <a href="{{ url_for('motor_details', motor_id=motor['id']) }}" class="btn btn-primary">Detalles</a>
                 </div>
             </div>
         </div>

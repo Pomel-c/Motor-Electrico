@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 
-{% block title %}Motor Monitoring System - Motor Details{% endblock %}
+{% block title %}Sistema de Monitoreo - Detalles de Motor{% endblock %}
 
 {% block content %}
 
-<h1 class="mb-4">Motor Monitor</h1>
+<h1 class="mb-4">Detalles de Motor</h1>
 
 <div class="row">
     <!-- Cuadro de "Motor Characteristics" -->
     <div class="col-md-6">
         <div class="card mb-4">
             <div class="card-header">
-                <h4>Motor Characteristics</h4>
+                <h4>Caracteristicas de Motor</h4>
             </div>
             <div class="card-body">
                 <ul class="list-group">
@@ -30,7 +30,7 @@
     <div class="col-md-6">
         <div class="card mb-4">
             <div class="card-header">
-                <h4>Maintenance Tips</h4>
+                <h4>Tips de Mantenimiento</h4>
             </div>
             <div class="card-body">
                 <ul>Clean the motor regularly to remove dust and debris.</ul>
@@ -64,7 +64,7 @@
 <!-- Indicadores de estado -->
 <div class="card">
     <div class="card-header">
-        Motor Status Indicators
+        <h4>Indicadores de Estado del Motor</h4>
     </div>
     <div class="card-body">
         <div class="indicator">
@@ -77,7 +77,7 @@
         <div class="indicator">
             <div class="indicator-circle status-yellow"></div>
             <h5 class="indicator-label">Current</h5>
-            <div class="indicator-value">Measured: 1.9 A</div>
+            <div class="indicator-value">Measured: 1.7 A</div>
             <div class="indicator-value">Expected: 2.0-3.0 A</div>
             <div class="indicator-status status-yellow">Attention</div>
         </div>
