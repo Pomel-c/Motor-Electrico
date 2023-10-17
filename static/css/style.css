@@ -1,3 +1,4 @@
+/* Estilos generales */
 body {
     background-color: #f8f9fa;
 }
@@ -10,6 +11,7 @@ body {
     margin-bottom: 20px;
 }
 
+/* Estilos para los indicadores de estado */
 .indicator {
     display: flex;
     align-items: center;
@@ -46,7 +48,7 @@ body {
 .indicator-value {
     flex: 2;
     margin-right: 10px;
-    color: #007bff; /* Cambio el color del texto */
+    color: #007bff;
 }
 
 .indicator-status {
@@ -56,7 +58,7 @@ body {
     font-weight: bold;
 }
 
-/* Personaliza el diseño de las tarjetas */
+/* Estilos para las tarjetas de motor */
 .motor-card {
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
@@ -69,31 +71,32 @@ body {
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* Agrega una barra de potencia en cada tarjeta */
+/* Estilos para la barra de potencia */
 .power-bar {
     height: 8px;
     background-color: #007bff;
-    width: 0; /* Se ajustará mediante el estilo en línea */
+    width: 0;
     border-radius: 5px;
     margin-top: 10px;
     transition: width 0.5s;
 }
 
-
-.power-bar {
-    height: 8px;
-    background-color: #c3c3c3; /* Color de fondo de la barra */
-    width: 0;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    transition: width 0.5s;
-    position: relative;
-}
-
-/* Estilo para el relleno de la barra de potencia */
+/* Estilos para el relleno de la barra de potencia */
 .power-bar-fill {
     height: 100%;
-    background-color: #4CAF50; /* Color del relleno de la barra */
+    background-color: #4CAF50;
     border-radius: 5px;
 }
 
+/* Boton de wp */
+.whatsApp{
+	display:
+               inline-block;
+               padding:16px;
+               border-radius: 8px;
+               background-color: #25D366;
+               color: #fff;
+               text-decoration: none;
+               font-family: sans-serif;
+               font-size: 16px;
+}
