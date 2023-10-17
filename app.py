@@ -7,10 +7,10 @@ app = Flask(__name__)
 def index():
     # Motores siendo medidos por el Arduino
     motors = [
-        {'id': 1, 'name': 'Motor 1', 'power': 0.5},
-        {'id': 2, 'name': 'Motor 2', 'power': 1.0},
-        {'id': 3, 'name': 'Motor 3', 'power': 1.5},
-        {'id': 4, 'name': 'Motor 4', 'power': 2.0}
+        {'id': 1, 'name': 'Motor 1 - Cinta transportadora', 'power': 0.5},
+        {'id': 2, 'name': 'Motor 2 - Compresor taller', 'power': 1.0},
+        {'id': 3, 'name': 'Motor 3 - Tornillo sin fin', 'power': 1.5},
+        {'id': 4, 'name': 'Motor 4', 'power': 2.5}
         # Agrega más motores según sea necesario
     ]
     return render_template('index.html', motors=motors)
