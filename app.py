@@ -1,7 +1,23 @@
-from flask import Flask, render_template
 from flask import Flask, render_template, request
+from flask_socketio import SocketIO
+from flask_serial import Serial
+from eventlet import monkey_patch
+
+monkey_patch()
 
 app = Flask(__name__)
+app.config['SERIAL_TIMEOUT'] = 0.2
+# Puerto de USB del arduino
+app.config['SERIAL_PORT'] = 'COM4'
+# Baudios del arduino
+app.config['SERIAL_BAUDRATE'] = 9600
+app.config['SERIAL_BYTESIZE'] = 8
+app.config['SERIAL_PARITY'] = 'N'
+app.config['SERIAL_STOPBITS'] = 1
+app.config['SECRET_KEY'] = 'secret!'
+
+ser = Serial(app)
+socketio = SocketIO(app)
 
 @app.route('/')
 def index():
@@ -14,6 +30,26 @@ def index():
         # Agrega más motores según sea necesario
     ]
     return render_template('index.html', motors=motors)
+
+
+@ser.on_message()
+def handle_message(medida):
+    medida = medida.decode().replace('\r','').replace('\n',' ')
+    # Voltage - Temperatura - rpm - Corriente
+    # print(medida) 751.95 75.20 270703.12 56919.33
+    voltaje = medida.split(' ')[0]
+    temperatura = medida.split(' ')[1]
+    rpm = medida.split(' ')[2]
+    corriente = medida.split(' ')[3]
+
+    # Horsepower = Torque x RPM / 5,252.
+    # Power = Voltage x Current x Power Factor
+    # Torque = Power / 746
+    horsepower = (float(voltaje) * float(corriente) * 0.8) / 746
+    
+    print(voltaje, temperatura, rpm, corriente, horsepower)
+
+    socketio.emit('data',{'temperatura':temperatura,'voltaje':voltaje,'rpm':rpm,'corriente':corriente, 'horsepower': horsepower})
 
 
 @app.route('/motor_details/<int:motor_id>')
@@ -59,4 +95,4 @@ def contact_form():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    socketio.run(app,debug = False)
