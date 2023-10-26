@@ -36,7 +36,7 @@ def index():
 def handle_message(medida):
     medida = medida.decode().replace('\r','').replace('\n',' ')
     # Voltage - Temperatura - rpm - Corriente
-    # print(medida) 751.95 75.20 270703.12 56919.33
+    # print(medida)
     voltaje = medida.split(' ')[0]
     temperatura = medida.split(' ')[1]
     rpm = medida.split(' ')[2]
@@ -47,7 +47,7 @@ def handle_message(medida):
     # Torque = Power / 746
     horsepower = (float(voltaje) * float(corriente) * 0.8) / 746
     
-    print(voltaje, temperatura, rpm, corriente, horsepower)
+    # print(voltaje, temperatura, rpm, corriente, horsepower)
 
     socketio.emit('data',{'temperatura':temperatura,'voltaje':voltaje,'rpm':rpm,'corriente':corriente, 'horsepower': horsepower})
 
