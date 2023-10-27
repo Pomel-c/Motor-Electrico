@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block title %}Sistema de Monitoreo - Graficos{% endblock %}
+
+{% block content %}
+
+<!-- FILEPATH: /c:/Users/Juan/Escritorio/Motor-Electrico/templates/motor_details.html -->
+
+<!-- Add a canvas element for the chart -->
+<canvas id="motor-chart"></canvas>
+
+
+<!-- Script to create the chart -->
+<script>
+    window.onload = function () {
+        let socket = io();
+
+        // Initialize chart data
+        let chartData = {
+            labels: [],
+            datasets: [
+                {
+                    label: 'RPM',
+                    data: [],
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    fill: false
+                },
+                {
+                    label: 'Voltage',
+                    data: [],
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    fill: false
+                },
+                {
+                    label: 'Temperature',
+                    data: [],
+                    borderColor: 'rgba(255, 206, 86, 1)',
+                    backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                    fill: false
+                },
+                {
+                    label: 'Current',
+                    data: [],
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    fill: false
+                }
+            ]
+        };
+
+        // Initialize chart options
+        let chartOptions = {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'Motor Data'
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Time'
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Value'
+                    }
+                }]
+            }
+        };
+
+        // Create the chart
+        let motorChart = new Chart(document.getElementById('motor-chart'), {
+            type: 'line',
+            data: chartData,
+            options: chartOptions
+        });
+
+        // Update chart data when new data is received from the socket
+        socket.on('data', function(data) {
+            // Add new data to chart data
+            chartData.labels.push(new Date().toLocaleTimeString());
+            chartData.datasets[0].data.push(data.rpm);
+            chartData.datasets[1].data.push(data.voltaje);
+            chartData.datasets[2].data.push(data.temperatura);
+            chartData.datasets[3].data.push(data.corriente);
+
+            // Remove oldest data if chart has more than 10 data points
+            if (chartData.labels.length > 15) {
+                chartData.labels.shift();
+                chartData.datasets[0].data.shift();
+                chartData.datasets[1].data.shift();
+                chartData.datasets[2].data.shift();
+                chartData.datasets[3].data.shift();
+            }
+
+            // Update the chart
+            motorChart.update();
+        });
+    };
+</script>
+
+{% endblock %}

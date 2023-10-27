@@ -3,8 +3,8 @@
 {% block title %}Sistema de Monitoreo - Detalles de Motor{% endblock %}
 
 {% block content %}
-
 <h1 class="mb-4">Detalles de Motor</h1>
+<a href="/graph" class="btn btn-primary mb-4">Graficos en vivo</a>
 
 <div class="row">
     <!-- Cuadro de "Motor Characteristics" -->
@@ -61,24 +61,24 @@
             <div class="indicator-status status-green">Normal</div>
         </div>
         <div class="indicator">
-            <div class="indicator-circle status-yellow"></div>
+            <div class="indicator-circle status-green"></div>
             <h5>Corriente:</h5>
             <div class="indicator-value">
                 <span id="corriente"></span>
                 <span class="indicator-value">A</span>  
             </div>
             <div class="indicator-value">Expected: 2.0-3.0 A</div>
-            <div class="indicator-status status-yellow" id="corriente-indicator">Attention</div>
+            <div class="indicator-status status-green" id="corriente-indicator">Attention</div>
         </div>
         <div class="indicator">
-            <div class="indicator-circle status-red"></div>
+            <div class="indicator-circle status-green"></div>
             <h5>Temperatura:</h5>
             <div class="indicator-value">
                 <span id="temperatura"></span>
                 <span class="indicator-value">°C</span>  
             </div>
             <div class="indicator-value">Expected: < 80°C</div>
-            <div class="indicator-status status-red">Danger</div>
+            <div class="indicator-status status-green">Danger</div>
         </div>
         <div class="indicator">
             <div class="indicator-circle status-green"></div>
@@ -87,7 +87,7 @@
                 <span id="rpm"></span>
                 <span class="indicator-value">rpm</span>  
             </div>
-            <div class="indicator-value">Expected: 1500 RPM</div>
+            <div class="indicator-value">Expected: 1850 RPM</div>
             <div class="indicator-status status-green" id="rpm-indicator">Normal</div>
         </div>
     </div>
@@ -106,11 +106,11 @@
             // Change indicator status based on data
             let voltageIndicator = document.querySelector('#voltaje').parentNode.parentNode.querySelector('.indicator-status');
             if (data.voltaje < 200 || data.voltaje > 260) {
-                voltageIndicator.classList.remove('status-green');
+                voltageIndicator.classList.remove('status-green', 'status-yellow');
                 voltageIndicator.classList.add('status-red');
                 voltageIndicator.textContent = 'Danger';
             } else if (data.voltaje < 210 || data.voltaje > 250) {
-                voltageIndicator.classList.remove('status-green');
+                voltageIndicator.classList.remove('status-green', 'status-red');
                 voltageIndicator.classList.add('status-yellow');
                 voltageIndicator.textContent = 'Attention';
             } else {
@@ -121,11 +121,11 @@
 
             let corrienteIndicator = document.querySelector('#corriente').parentNode.parentNode.querySelector('.indicator-status');
             if (data.corriente < 1.5 || data.corriente > 3.5) {
-                corrienteIndicator.classList.remove('status-green');
+                corrienteIndicator.classList.remove('status-green', 'status-yellow');
                 corrienteIndicator.classList.add('status-red');
                 corrienteIndicator.textContent = 'Danger';
             } else if (data.corriente < 2.0 || data.corriente > 3.0) {
-                corrienteIndicator.classList.remove('status-green');
+                corrienteIndicator.classList.remove('status-green', 'status-red');
                 corrienteIndicator.classList.add('status-yellow');
                 corrienteIndicator.textContent = 'Attention';
             } else {
@@ -140,7 +140,7 @@
                 temperaturaIndicator.classList.add('status-red');
                 temperaturaIndicator.textContent = 'Danger';
             } else if (data.temperatura > 80) {
-                temperaturaIndicator.classList.remove('status-green');
+                temperaturaIndicator.classList.remove('status-green', 'status-red');
                 temperaturaIndicator.classList.add('status-yellow');
                 temperaturaIndicator.textContent = 'Attention';
             } else {
@@ -151,11 +151,11 @@
 
             let rpmIndicator = document.querySelector('#rpm').parentNode.parentNode.querySelector('.indicator-status');
             if (data.rpm < 1500 || data.rpm > 2000) {
-                rpmIndicator.classList.remove('status-green');
+                rpmIndicator.classList.remove('status-green', 'status-yellow');
                 rpmIndicator.classList.add('status-red');
                 rpmIndicator.textContent = 'Danger';
             } else if (data.rpm < 1600 || data.rpm > 1900) {
-                rpmIndicator.classList.remove('status-green');
+                rpmIndicator.classList.remove('status-green', 'status-red');
                 rpmIndicator.classList.add('status-yellow');
                 rpmIndicator.textContent = 'Attention';
             } else {

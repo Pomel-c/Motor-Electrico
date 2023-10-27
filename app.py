@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from flask_socketio import SocketIO
 from flask_serial import Serial
 from eventlet import monkey_patch
+import random
 
 monkey_patch()
 
@@ -37,11 +38,24 @@ def handle_message(medida):
     medida = medida.decode().replace('\r','').replace('\n',' ')
     # Voltage - Temperatura - rpm - Corriente
     # print(medida)
-    voltaje = medida.split(' ')[0]
-    temperatura = medida.split(' ')[1]
-    rpm = medida.split(' ')[2]
-    corriente = medida.split(' ')[3]
 
+    # funcion para randomizar los datos
+    # BORRAR CUANDO SE COLOQUE EL ARDUINO REAL
+    # voltaje = float(medida.split(' ')[0]) * random.uniform(0.5, 5) ----
+    # ---> voltaje = medida.split(' ')[0]
+    
+    voltaje = float(medida.split(' ')[0]) * random.uniform(0.5, 5)
+    voltaje = float("{:.2f}".format(voltaje))
+
+    temperatura = float( medida.split(' ')[1]) * random.uniform(0.1, 10)
+    temperatura = float("{:.2f}".format(temperatura))
+
+    rpm = float(medida.split(' ')[2]) * random.uniform(0.5, 5)
+    rpm = float("{:.2f}".format(rpm))
+
+    corriente = float(medida.split(' ')[3]) * random.uniform(0.5, 2.5)
+    corriente = float("{:.2f}".format(corriente))
+    
     # Horsepower = Torque x RPM / 5,252.
     # Power = Voltage x Current x Power Factor
     # Torque = Power / 746
@@ -51,6 +65,9 @@ def handle_message(medida):
 
     socketio.emit('data',{'temperatura':temperatura,'voltaje':voltaje,'rpm':rpm,'corriente':corriente, 'horsepower': horsepower})
 
+@app.route('/graph')
+def graph():
+    return render_template('graph.html')
 
 @app.route('/motor_details/<int:motor_id>')
 def motor_details(motor_id):
