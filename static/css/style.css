@@ -11,6 +11,16 @@ body {
     margin-bottom: 20px;
 }
 
+.card {
+    border: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: #007bff;
+    color: #fff;
+}
+
 /* Estilos para los indicadores de estado */
 .indicator {
     display: flex;
@@ -18,6 +28,7 @@ body {
     margin-bottom: 10px;
     padding: 10px;
     border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 .indicator-circle {
@@ -25,18 +36,42 @@ body {
     height: 20px;
     border-radius: 50%;
     margin-right: 10px;
+    background-color: darkorange;
+}
+
+.indicator h5 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.indicator-value {
+    font-size: 24px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.indicator-status {
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: auto;
+    padding: 5px 10px;
+    border-radius: 5px;
 }
 
 .status-green {
     background-color: #28a745;
+    color: #fff;
 }
 
 .status-yellow {
     background-color: #ffc107;
+    color: #000;
 }
 
 .status-red {
     background-color: #dc3545;
+    color: #fff;
 }
 
 .indicator-label {

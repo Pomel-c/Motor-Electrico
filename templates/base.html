@@ -11,6 +11,14 @@
     <!-- Archivos CSS de Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+          crossorigin="anonymous">
+    <!-- Add custom CSS for night mode -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/night-mode.css') }}" id="night-mode">
+
+
     <!-- Archivos JavaScript de Bootstrap (opcional, para componentes interactivos) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
@@ -36,6 +44,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('contact_form') }}">Contacto</a>
+                    </li>
+                    <li>
+                        <button class="btn btn-primary" onclick="toggleNightMode()">🌙</button>
                     </li>                    
                 </ul>
             </div>
@@ -45,5 +56,28 @@
     <div class="container mt-5">
         {% block content %}{% endblock %}
     </div>
+    <!-- Add Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+            integrity="sha384-+4Wz9QJQJz8jz5zvJ6v8z2vJ9ZJ8L1jJ5Qz5LjJz9JZzq5z5z5z5z5z5z5z5z5z5"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+            crossorigin="anonymous"></script>
+    
+    <!-- Add custom JS to toggle night mode -->
+    <script>
+        function toggleNightMode() {
+            let nightMode = document.getElementById('night-mode');
+            if (nightMode.getAttribute('href') === '{{ url_for('static', filename='css/night-mode.css') }}') {
+                nightMode.setAttribute('href', '');
+            } else {
+                nightMode.setAttribute('href', '{{ url_for('static', filename='css/night-mode.css') }}');
+            }
+        }
+    </script>
+
 </body>
 </html>
