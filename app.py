@@ -76,19 +76,35 @@ def motor_details(motor_id):
     motors = {
         1: {
             'voltage': '220-240 V',
-            'rpm': 1500,
+            'rpm': 1850,
             'current': '2.5 A',
             'frequency': '50 Hz',
             'max_temp': 80,
             'rated_power': 0.5
         },
         2: {
-            'voltage': '240-250 V',
-            'rpm': 1800,
+            'voltage': '220-240 V',
+            'rpm': 2000,
             'current': '3.0 A',
             'frequency': '60 Hz',
             'max_temp': 90,
-            'rated_power': 0.75
+            'rated_power': 1.0
+        },
+        3: {
+            'voltage': '220-240 V',
+            'rpm': 2600,
+            'current': '3.0 A',
+            'frequency': '50 Hz',
+            'max_temp': 75,
+            'rated_power': 1.5
+        },
+        4: {
+            'voltage': '220-240 V',
+            'rpm': 1600,
+            'current': '2.5 A',
+            'frequency': '50 Hz',
+            'max_temp': 90,
+            'rated_power': 2.5
         }
         # Agrega más motores según sea necesario
     }
