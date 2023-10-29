@@ -129,9 +129,14 @@ body {
                inline-block;
                padding:16px;
                border-radius: 8px;
-               background-color: #25D366;
+               background-color: #199044;
                color: #fff;
                text-decoration: none;
                font-family: sans-serif;
                font-size: 16px;
+}
+
+.motor-table {
+    background-color: #fff;
+    color: #000;
 }

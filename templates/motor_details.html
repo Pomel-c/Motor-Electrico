@@ -25,73 +25,61 @@
             </div>
         </div>
     </div>
-
-    <!-- Cuadro de "Consejos de Mantenimiento y Recursos Externos" -->
     <div class="col-md-6">
         <div class="card mb-4">
             <div class="card-header">
                 <h4>Tips de Mantenimiento</h4>
             </div>
             <div class="card-body">
-                <ul>Clean the motor regularly to remove dust and debris.</ul>
-                <ul>Lubricate moving parts according to manufacturer's recommendations.</ul>
-                <ul>Inspect cables and connections for wear and tear.</ul>
-                <ul>Perform regular tests of operation and load.</ul>
-                <ul>Avoid frequent starts and stops to extend the lifespan.</ul>
-                <ul>Maintain a maintenance record and schedule.</ul>
+                <ul>Limpie el motor con regularidad para eliminar el polvo y la suciedad.</ul>
+                <ul>Lubrique las piezas móviles según las recomendaciones del fabricante.</ul>
+                <ul>Inspeccione los cables y las conexiones en busca de desgaste.</ul>
+                <ul>Realizar pruebas periódicas de funcionamiento y carga.</ul>
+                <ul>Evite arranques y paradas frecuentes para prolongar la vida útil.</ul>
+                <ul>Mantener un registro y cronograma de mantenimiento.</ul>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Indicadores de estado -->
-<div class="card">
-    <div class="card-header">
-        <h4>Indicadores de Estado del Motor</h4>
-    </div>
-    <div class="card-body">
-        <div class="indicator">
-            <div class="indicator-circle"></div>
-            <h5>Voltaje:</h5>
-            <div class="indicator-value">
-                <span id="voltaje"></span>
-                <span class="indicator-value">W</span>  
-            </div>
-            <div class="indicator-value">Expected: 220-240 V</div>
-            <div class="indicator-status status-green">Normal</div>
-        </div>
-        <div class="indicator">
-            <div class="indicator-circle"></div>
-            <h5>Corriente:</h5>
-            <div class="indicator-value">
-                <span id="corriente"></span>
-                <span class="indicator-value">A</span>  
-            </div>
-            <div class="indicator-value">Expected: 2.0-3.0 A</div>
-            <div class="indicator-status status-green" id="corriente-indicator">Attention</div>
-        </div>
-        <div class="indicator">
-            <div class="indicator-circle"></div>
-            <h5>Temperatura:</h5>
-            <div class="indicator-value">
-                <span id="temperatura"></span>
-                <span class="indicator-value">°C</span>  
-            </div>
-            <div class="indicator-value">Expected: < 80°C</div>
-            <div class="indicator-status status-green">Danger</div>
-        </div>
-        <div class="indicator">
-            <div class="indicator-circle"></div>
-            <h5>RPM:</h5>
-            <div class="indicator-value">
-                <span id="rpm"></span>
-                <span class="indicator-value">rpm</span>  
-            </div>
-            <div class="indicator-value">Expected: 1850 RPM</div>
-            <div class="indicator-status status-green" id="rpm-indicator">Normal</div>
-        </div>
-    </div>
-</div>
+
+<table class="table motor-table">
+    <thead>
+        <tr>
+            <th>Indicador</th>
+            <th>Valor</th>
+            <th>Esperado</th>
+            <th>Estado</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Voltaje</td>
+            <td><span id="voltaje"></span> V</td>
+            <td>220-240 V</td>
+            <td class="indicator-status status-green">Normal</td>
+        </tr>
+        <tr>
+            <td>Corriente</td>
+            <td><span id="corriente"></span> A</td>
+            <td>2.0-3.0 A</td>
+            <td class="indicator-status status-green" id="corriente-indicator">Attention</td>
+        </tr>
+        <tr>
+            <td>Temperatura</td>
+            <td><span id="temperatura"></span> °C</td>
+            <td>< 80°C</td>
+            <td class="indicator-status status-green">Danger</td>
+        </tr>
+        <tr>
+            <td>RPM</td>
+            <td><span id="rpm"></span> rpm</td>
+            <td>1850 RPM</td>
+            <td class="indicator-status status-green" id="rpm-indicator">Normal</td>
+        </tr>
+    </tbody>
+</table>
 
 <!-- Script to change indicator status -->
 <script>

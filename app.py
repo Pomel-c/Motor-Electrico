@@ -37,6 +37,7 @@ def index():
 def handle_message(medida):
     medida = medida.decode().replace('\r','').replace('\n',' ')
     # Voltage - Temperatura - rpm - Corriente
+    # 20003 12348923 9384923 34923
     # print(medida)
 
     # funcion para randomizar los datos

@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 
-{% block title %}Contact Us{% endblock %}
+{% block title %}Contactanos{% endblock %}
 
 {% block content %}
     <div style="display: flex; align-items: flex-start; justify-content: space-between;">
         <div style="flex: 1; padding: 20px;">
             <!-- Formulario de contacto para el lado izquierdo -->
-            <h2>Contact Us</h2>
+            <h2>Contactanos</h2>
             <form method="post">
                 <div class="mb-3">
-                    <label for="name" class="form-label">Name</label>
+                    <label for="name" class="form-label">Nombre</label>
                     <input type="text" class="form-control" id="name" name="name" required>
                 </div>
                 <div class="mb-3">
@@ -17,10 +17,10 @@
                     <input type="email" class="form-control" id="email" name="email" required>
                 </div>
                 <div class="mb-3">
-                    <label for="message" class="form-label">Message</label>
+                    <label for="message" class="form-label">Mensaje</label>
                     <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Enviar</button>
             </form>
         </div>
         <div style="flex: 1; padding: 20px;">
