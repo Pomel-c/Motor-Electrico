@@ -20,6 +20,9 @@ app.config['SECRET_KEY'] = 'secret!'
 ser = Serial(app)
 socketio = SocketIO(app)
 
+print("Server running...")
+print("http://127.0.0.1:5000")
+
 @app.route('/')
 def index():
     # Motores siendo medidos por el Arduino
