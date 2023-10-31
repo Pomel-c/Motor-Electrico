@@ -4,14 +4,15 @@ from flask_serial import Serial
 from eventlet import monkey_patch
 import random
 
-# Correr serve online ssh -R 80:localhost:5000 localhost.run
+# Correr serve online 
+# ssh -R 80:localhost:5000 localhost.run
 
 monkey_patch()
 
 app = Flask(__name__)
 app.config['SERIAL_TIMEOUT'] = 0.2
 # Puerto de USB del arduino
-# app.config['SERIAL_PORT'] = ''
+app.config['SERIAL_PORT'] = 'COM4'
 # Baudios del arduino
 app.config['SERIAL_BAUDRATE'] = 9600
 app.config['SERIAL_BYTESIZE'] = 8
