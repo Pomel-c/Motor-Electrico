@@ -4,6 +4,9 @@ from flask_serial import Serial
 from eventlet import monkey_patch
 import random
 
+# Correr serve online 
+# ssh -R 80:localhost:5000 localhost.run
+
 monkey_patch()
 
 app = Flask(__name__)
