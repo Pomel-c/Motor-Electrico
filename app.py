@@ -3,6 +3,7 @@ from flask_socketio import SocketIO
 from flask_serial import Serial
 from eventlet import monkey_patch
 import random
+import os
 
 # Correr serve online 
 # ssh -R 80:localhost:5000 localhost.run
@@ -12,7 +13,8 @@ monkey_patch()
 app = Flask(__name__)
 app.config['SERIAL_TIMEOUT'] = 0.2
 # Puerto de USB del arduino
-app.config['SERIAL_PORT'] = 'COM4'
+app.config['SERIAL_PORT'] = 'COM4' # Windows
+# app.config['SERIAL_PORT'] = './dev/cu.usbserial-1410' # MacOs
 # Baudios del arduino
 app.config['SERIAL_BAUDRATE'] = 9600
 app.config['SERIAL_BYTESIZE'] = 8
@@ -24,7 +26,9 @@ ser = Serial(app)
 socketio = SocketIO(app)
 
 print("Server running...")
-print("http://127.0.0.1:5000")
+
+# Correr en localhost
+print("http://localhost:5000")
 
 @app.route('/')
 def index():
@@ -132,6 +136,11 @@ def contact_form():
         # Aquí podrías procesar los datos del formulario, como enviar correos electrónicos, etc.
         return render_template('contact_success.html', name=name)
     return render_template('contact_form.html')
+
+
+# Correr en localhost.run
+if input("Correr Online en localhost.run? (y/n): ") == 'y':
+    os.system('cmd /k "ssh -R 80:localhost:5000 localhost.run"')
 
 
 if __name__ == '__main__':
