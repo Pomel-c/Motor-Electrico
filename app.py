@@ -7,6 +7,7 @@ import os
 
 # Correr serve online 
 # ssh -R 80:localhost:5000 localhost.run
+# btunnel http --key JDJhJDEyJEZ3L3dvWGtkWVQ3ZVhsYkVJbFREUE9DYkwwTVJoanhFRlhGRXV2UmE4RDVvVGJvdWtkWE1L --port 5000
 
 monkey_patch()
 
@@ -136,11 +137,6 @@ def contact_form():
         # Aquí podrías procesar los datos del formulario, como enviar correos electrónicos, etc.
         return render_template('contact_success.html', name=name)
     return render_template('contact_form.html')
-
-
-# Correr en localhost.run
-if input("Correr Online en localhost.run? (y/n): ") == 'y':
-    os.system('cmd /k "ssh -R 80:localhost:5000 localhost.run"')
 
 
 if __name__ == '__main__':
