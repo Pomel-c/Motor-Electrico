@@ -1,0 +1,161 @@
+
+
+{% extends 'base.html' %}
+
+{% block title %}Sistema de Monitoreo - Graficos 2{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6">
+            <canvas id="temperatureChart"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="voltageChart"></canvas>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <canvas id="currentChart"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="rpmChart"></canvas>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/socket.io/socket.io.js"></script> -->
+    <script>
+        var socket = io();
+
+        // Temperature chart
+        var temperatureCtx = document.getElementById('temperatureChart').getContext('2d');
+        var temperatureChart = new Chart(temperatureCtx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Temperature',
+                    data: [],
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+        // Voltage chart
+        var voltageCtx = document.getElementById('voltageChart').getContext('2d');
+        var voltageChart = new Chart(voltageCtx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Voltage',
+                    data: [],
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+        // Current chart
+        var currentCtx = document.getElementById('currentChart').getContext('2d');
+        var currentChart = new Chart(currentCtx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Current',
+                    data: [],
+                    backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                    borderColor: 'rgba(255, 206, 86, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+        // Humidity chart
+        var humidityCtx = document.getElementById('humidityChart').getContext('2d');
+        var humidityChart = new Chart(humidityCtx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Humidity',
+                    data: [],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+        // Listen for temperature data
+        socket.on('temperature', function(data) {
+            temperatureChart.data.labels.push(data.timestamp);
+            temperatureChart.data.datasets[0].data.push(data.value);
+            temperatureChart.update();
+        });
+
+        // Listen for voltage data
+        socket.on('voltage', function(data) {
+            voltageChart.data.labels.push(data.timestamp);
+            voltageChart.data.datasets[0].data.push(data.value);
+            voltageChart.update();
+        });
+
+        // Listen for current data
+        socket.on('current', function(data) {
+            currentChart.data.labels.push(data.timestamp);
+            currentChart.data.datasets[0].data.push(data.value);
+            currentChart.update();
+        });
+
+        // Listen for humidity data
+        socket.on('rpm', function(data) {
+            rpmChart.data.labels.push(data.timestamp);
+            rpmChart.data.datasets[0].data.push(data.value);
+            rpmChart.update();
+        });
+    </script>
+{% endblock %}
+
