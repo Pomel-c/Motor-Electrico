@@ -6,19 +6,9 @@
 
 {% block content %}
     <div class="row">
+        <h1>Grafico de Temperatura</h1>
         <div class="col-md-6">
-            <canvas id="temperaturaChart"></canvas>
-        </div>
-        <div class="col-md-6">
-            <canvas id="voltajeChart"></canvas>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <canvas id="corrienteChart"></canvas>
-        </div>
-        <div class="col-md-6">
-            <canvas id="rpmChart"></canvas>
+            <canvas id="motor-chart"></canvas>
         </div>
     </div>
 {% endblock %}
@@ -26,146 +16,74 @@
 {% block scripts %}
     <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="/socket.io/socket.io.js"></script> -->
-<script>
-    window.onload = function () {    
-        let socket = io();
-
-        // Temperature chart
-        var temperaturaCtx = document.getElementById('temperaturaChart').getContext('2d');
-        var temperaturaChart = new Chart(temperaturaCtx, {
-            type: 'line',
-            data: {
+    <script>
+        window.onload = function () {
+            let socket = io();
+    
+            // Initialize chart data
+            let chartData = {
                 labels: [],
-                datasets: [{
-                    label: 'Temperatura',
-                    data: [],
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 1,
-                    fill: true,
-                    lineTension: 0.25
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
-        });
-
-        // Voltaje chart
-        var voltajeCtx = document.getElementById('voltajeChart').getContext('2d');
-        var voltajeChart = new Chart(voltajeCtx, {
-            type: 'line',
-            data: {
-                labels: [],
-                datasets: [{
-                    label: 'Voltaje',
-                    data: [],
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1,
-                    fill: true,
-                    lineTension: 0.25
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
-        });
-
-        // corriente chart
-        var corrienteCtx = document.getElementById('corrienteChart').getContext('2d');
-        var corrienteChart = new Chart(corrienteCtx, {
-            type: 'line',
-            data: {
-                labels: [],
-                datasets: [{
-                    label: 'Corriente',
-                    data: [],
-                    backgroundColor: 'rgba(255, 206, 86, 0.2)',
-                    borderColor: 'rgba(255, 206, 86, 1)',
-                    borderWidth: 1,
-                    fill: true,
-                    lineTension: 0.25
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
-        });
-
-        // Humidity chart
-        var rpmChartCTX = document.getElementById('rpmChart').getContext('2d');
-        var rpmChartChart = new Chart(rpmChartCTX, {
-            type: 'line',
-            data: {
-                labels: [],
-                datasets: [{
-                    label: 'RPM',
-                    data: [],
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1,
-                    fill: true,
-                    lineTension: 0.25
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
-        });
-
-        // Listen for temperature data
-        socket.on('data', function(data) {
-            temperatureChart.labels.push(new Date().toLocaleTimeString());
-            temperatureChart.data.datasets[2].data.push(data.temperatura);
-            temperatureChart.update();
-        });
-
-        // Listen for voltaje data
-        socket.on('data', function(data) {
-            voltajeChart.data.labels.push(data.timestamp);
-            voltajeChart.data.datasets[1].data.push(data.voltaje);
-            voltajeChart.update();
-        });
-
-        // Listen for corriente data
-        socket.on('corriente', function(data) {
-            corrienteChart.data.labels.push(data.timestamp);
-            corrienteChart.data.datasets[3].data.push(data.corriente);
-            corrienteChart.update();
-        });
-
-        // Listen for humidity data
-        socket.on('rpm', function(data) {
-            rpmChart.data.labels.push(data.timestamp);
-            rpmChart.data.datasets[0].data.push(data.temperatura);
-            rpmChart.update();
-        });
+                datasets: [
+                    {
+                        label: 'Temperature',
+                        data: [],
+                        borderColor: 'rgba(255, 206, 86, 1)',
+                        backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                        fill: true,
+                        lineTension: 0.25
+                    }
+                ]
             };
-</script>
+    
+            // Initialize chart options
+            let chartOptions = {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: 'Temperatura'
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Time'
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Grados ºC'
+                        }
+                    }]
+                }
+            };
+    
+            // Create the chart
+            let motorChart = new Chart(document.getElementById('motor-chart'), {
+                type: 'line',
+                data: chartData,
+                options: chartOptions
+            });
+    
+            // Update chart data when new data is received from the socket
+            socket.on('data', function(data) {
+                // Add new data to chart data
+                chartData.labels.push(new Date().toLocaleTimeString());
+                chartData.datasets[2].data.push(data.temperatura);
+    
+                // Remove oldest data if chart has more than 10 data points
+                if (chartData.labels.length > 15) {
+                    chartData.labels.shift();
+                    chartData.datasets[2].data.shift();
+                }
+    
+                // Update the chart
+                motorChart.update();
+            });
+        };
+    </script>
+    
 {% endblock %}
 
