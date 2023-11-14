@@ -14,8 +14,8 @@ monkey_patch()
 app = Flask(__name__)
 app.config['SERIAL_TIMEOUT'] = 0.2
 # Puerto de USB del arduino
-app.config['SERIAL_PORT'] = 'COM4' # Windows
-# app.config['SERIAL_PORT'] = './dev/cu.usbserial-1410' # MacOs
+# app.config['SERIAL_PORT'] = 'COM4' # Windows
+app.config['SERIAL_PORT'] = './dev/cu.usbserial-1410' # MacOs
 # Baudios del arduino
 app.config['SERIAL_BAUDRATE'] = 9600
 app.config['SERIAL_BYTESIZE'] = 8
@@ -47,14 +47,18 @@ def index():
 @ser.on_message()
 def handle_message(medida):
     medida = medida.decode().replace('\r','').replace('\n',' ')
-    # Voltage - Temperatura - rpm - Corriente
-    # 20003 12348923 9384923 34923
-    # print(medida)
+    
+    # voltaje = float(medida.split(' ')[0]) * random.uniform(0.5, 5)
+    # voltaje = float("{:.2f}".format(voltaje))
 
-    # funcion para randomizar los datos
-    # BORRAR CUANDO SE COLOQUE EL ARDUINO REAL
-    # voltaje = float(medida.split(' ')[0]) * random.uniform(0.5, 5) ----
-    # ---> voltaje = medida.split(' ')[0]
+    # temperatura = float( medida.split(' ')[1]) * random.uniform(0.1, 10)
+    # temperatura = float("{:.2f}".format(temperatura))
+
+    # rpm = float(medida.split(' ')[2]) * random.uniform(0.5, 5)
+    # rpm = float("{:.2f}".format(rpm))
+
+    # corriente = float(medida.split(' ')[3]) * random.uniform(0.5, 2.5)
+    # corriente = float("{:.2f}".format(corriente))
     
     voltaje = float(medida.split(' ')[0]) * random.uniform(0.5, 5)
     voltaje = float("{:.2f}".format(voltaje))
@@ -67,7 +71,7 @@ def handle_message(medida):
 
     corriente = float(medida.split(' ')[3]) * random.uniform(0.5, 2.5)
     corriente = float("{:.2f}".format(corriente))
-    
+
     # Horsepower = Torque x RPM / 5,252.
     # Power = Voltage x Current x Power Factor
     # Torque = Power / 746
