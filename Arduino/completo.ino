@@ -6,24 +6,28 @@
 
 #define ONE_WIRE_BUS_TEMP 2   // Pin para el sensor de temperatura DS18B20 2 Digital
 
-// ZMPT101B sensor output connected to analog pin A0
-// and the voltage source frequency is 50 Hz.
+// ZMPT101B sensor output connected to analog pin A1 and the voltage source frequency is 50 Hz.
 ZMPT101B voltageSensor(A1, 50.0);
 
 OneWire oneWire(ONE_WIRE_BUS_TEMP);
 DallasTemperature sensors(&oneWire);
 
 // Sensor de Corriente colocar en A0, el pin 0 Analogico
-const int sensorPin = 14;     // initializing a pin for the sensor output
+const int sensorCorriente = 14;     
+
+// Sensor de RPM en el pin D3, pin 3 digital
+const int sensorRPM = 3;
+
+volatile int cont = 0; 
+int vueltas = 0;
 
 
 void setup() {
   Serial.begin(9600);
-
   voltageSensor.setSensitivity(SENSITIVITY);
-
-  pinMode(sensorPin, INPUT);
-
+  pinMode(sensorCorriente, INPUT);
+  pinMode(sensorRPM, INPUT);
+  attachInterrupt(digitalPinToInterrupt(3), interrupcion, RISING);
   sensors.begin();
 }
 
@@ -40,16 +44,25 @@ void loop() {
   Serial.print(" ");
   Serial.print(temperatureC);
 
+
+
   // Sensor de Corriente
   analogReference(INTERNAL);
   Serial.print(" ");
   float Irms=get_corriente(); //Corriente eficaz (A)
   Irms = Irms;
-  Serial.println(Irms,3);
+  Serial.print(Irms,3);
+
+  // Sensor de RPM
+  Serial.print(" ");
+  detachInterrupt(digitalPinToInterrupt(3));
+  vueltas = (cont*20)/60; // cont * cantidad de ranuras / delay en segundos
+  Serial.print(vueltas);
+  cont = 0;
+  attachInterrupt(digitalPinToInterrupt(3), interrupcion, RISING);
 
   Serial.println();
-
-  delay(100); // Esperar un segundo antes de la siguiente lectura
+  delay(1000); // Esperar un segundo antes de la siguiente lectura
 }
 
 
@@ -71,4 +84,8 @@ float get_corriente()
   Sumatoria=Sumatoria*2;//Para compensar los cuadrados de los semiciclos negativos.
   corriente=sqrt((Sumatoria)/N); //ecuación del RMS
   return(corriente);
+}
+
+void interrupcion(){
+  cont++;
 }
